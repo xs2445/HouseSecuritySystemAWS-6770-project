@@ -69,7 +69,7 @@ def run():
                 isDetected = False
                 confidence = 0
 
-        # only when person is detected for more than 4 continuous times, we record the video.
+        # only when person is detected for more than 4 continuous times, record the video.
         if confidence >=4:
             print('Hit!')
             t = time.time()
