@@ -108,9 +108,8 @@ def show_faces(photo,bucket):
     image.show()
 
     return len(response['FaceDetails'])
-
-def draw_bbox():
     
+
 
 # def main():
 #     photo=''
@@ -118,18 +117,18 @@ def draw_bbox():
 #     face_count=detect_faces(photo, bucket)
 #     print("Faces detected: " + str(face_count))
 
-# def main():
-#     source_file='vids/12-01-2021-19-44-13.jpg'
-#     target_file='vids/12-01-2021-19-52-48.jpg'
-#     face_matches=compare_faces(source_file, target_file)
-#     print("Face matches: " + str(face_matches))
-
 def main():
-    bucket="6770-project"
-    photo="12-01-2021-19-44-13.jpg"
+    source_file='vids/buffer/IMG_20210619_100853-min.jpg'
+    target_file='vids/12-01-2021-19-44-13.jpg'
+    face_matches=compare_faces(source_file, target_file)
+    print("Face matches: " + str(face_matches))
 
-    faces_count=show_faces(photo,bucket)
-    print("faces detected: " + str(faces_count))
+# def main():
+#     bucket="6770-project"
+#     photo="12-01-2021-19-44-13.jpg"
+
+#     faces_count=show_faces(photo,bucket)
+#     print("faces detected: " + str(faces_count))
 
 if __name__ == "__main__":
     main()
