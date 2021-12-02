@@ -6,6 +6,7 @@ import datetime
 from UploadAWS import upload_file, upload_file2
 import threading
 import boto3
+from ImageDetection import compare_faces
 
 
 def run():
@@ -25,7 +26,14 @@ def run():
     confidence = 0
 
     # fourcc = cv.VideoWriter_fourcc(*'MP4V')
-    fourcc = cv.VideoWriter_fourcc(*'XVID')
+    # fourcc = 0x7634706d
+    # fourcc = cv.VideoWriter_fourcc(*'X264')
+    # fourcc = cv.VideoWriter_fourcc(*'avc1')
+    fourcc = cv.VideoWriter_fourcc(*'H264')
+    # fourcc = 0x31637661
+    # fourcc = cv.VideoWriter_fourcc('a','v','c','1')
+    # print(fourcc)
+    # fourcc = cv.VideoWriter_fourcc(*'XVID')
 
     # assign camera
     cap = cv.VideoCapture(0)
@@ -34,6 +42,7 @@ def run():
         exit()
 
     while True:
+        time.sleep(1e-1)
         # Capture frame-by-frame from camera
         ret, frame = cap.read()
         # if frame is read correctly ret is True
@@ -75,8 +84,12 @@ def run():
             t = time.time()
             isDetected = True
             count_time += 1
-            name = 'vids/' + datetime.datetime.now().strftime("%m-%d-%Y-%H-%M-%S") + '.avi'
-            recorder = cv.VideoWriter(name,fourcc, 20.0, (640,480))
+            # name = 'vids/' + datetime.datetime.now().strftime("%m-%d-%Y-%H-%M-%S") + '.avi'
+            name = 'vids/' + datetime.datetime.now().strftime("%Y-%m-%d-%H%M%S") + '.mp4'
+            name_pic = name[:-4]+'.jpg'
+            print(name_pic)
+            cv.imwrite(name_pic, frame)
+            recorder = cv.VideoWriter(name, fourcc, 10.0, (640,480))
             recorder.write(frame)
             print('Recording...')
 

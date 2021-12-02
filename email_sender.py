@@ -7,7 +7,7 @@ SENDER = "Sender Name <sunxhbill@gmail.com>"
 
 # Replace recipient@example.com with a "To" address. If your account 
 # is still in the sandbox, this address must be verified.
-RECIPIENT = "xs2445@columbiae.edu"
+RECIPIENT = "xs2445@columbia.edu"
 
 # Specify a configuration set. If you do not want to use a configuration
 # set, comment the following variable, and the 
@@ -15,7 +15,7 @@ RECIPIENT = "xs2445@columbiae.edu"
 # CONFIGURATION_SET = "ConfigSet"
 
 # If necessary, replace us-west-2 with the AWS Region you're using for Amazon SES.
-AWS_REGION = "us-east"
+AWS_REGION = "us-east-2"
 
 # The subject line for the email.
 SUBJECT = "Amazon SES Test (SDK for Python)"

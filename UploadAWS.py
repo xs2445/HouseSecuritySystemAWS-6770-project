@@ -74,8 +74,8 @@ if __name__ == '__main__':
     s3_client = boto3.client('s3')
 
     # print('a')
-    for bucket in s3_client.buckets.all():
-        print(bucket.name)
+    # for bucket in s3_client.buckets.all():
+    #     print(bucket.name)
 
     # s3.meta.client.upload_file('/tmp/hello.txt', 'mybucket', 'hello.txt')
 
@@ -84,4 +84,5 @@ if __name__ == '__main__':
     # s3_client.Bucket('6770-project').put_object(Key='cactus.jpg', Body=data)
     
     print('Uploading image...')  
-    upload_file2(s3_client, 'vids/11-28-2021-21-49-09.avi', '6770-project')
+    name = 'vids/12-01-2021-17-01-17.mp4'
+    upload_file2(s3_client, name, '6770-project')
