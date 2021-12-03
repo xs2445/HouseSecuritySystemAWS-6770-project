@@ -49,6 +49,40 @@ def compare_faces(sourceFile, targetFile):
     imageTarget.close()     
     return len(response['FaceMatches'])  
 
+def moderate_image(photo, bucket):
+
+    client=boto3.client('rekognition')
+
+    response = client.detect_moderation_labels(Image={'S3Object':{'Bucket':bucket,'Name':photo}})
+
+    print('Detected labels for ' + photo)    
+    for label in response['ModerationLabels']:
+        print (label['Name'] + ' : ' + str(label['Confidence']))
+        print (label['ParentName'])
+    return len(response['ModerationLabels'])
+
+
+def violence_detection(photo, bucket):
+
+    client=boto3.client('rekognition')
+
+    response = client.detect_moderation_labels(Image={'S3Object':{'Bucket':bucket,'Name':photo}})
+    
+    violence_count = 0
+    violence_list = []
+    violence_conf_list = []
+    
+    for label in response['ModerationLabels']:
+        
+        if 'Violence' in label['Name'] or 'Violence' in label['ParentName']:
+            violence_count += 1
+            violence_list.append(label['Name'])
+            violence_conf_list.append(label['Confidence'])
+        
+    return violence_count, max(violence_conf_list)
+
+
+
 import boto3
 import io
 from PIL import Image, ImageDraw, ExifTags, ImageColor
@@ -110,6 +144,13 @@ def show_faces(photo,bucket):
     return len(response['FaceDetails'])
     
 
+def detect_faces2(client, photo, bucket):
+
+    response = client.detect_faces(Image={'S3Object':{'Bucket':bucket,'Name':photo}},Attributes=['ALL'])
+    return len(response['FaceDetails'])
+
+
+
 
 # def main():
 #     photo=''
@@ -117,11 +158,21 @@ def show_faces(photo,bucket):
 #     face_count=detect_faces(photo, bucket)
 #     print("Faces detected: " + str(face_count))
 
-def main():
-    source_file='vids/buffer/IMG_20210619_100853-min.jpg'
-    target_file='vids/12-01-2021-19-44-13.jpg'
-    face_matches=compare_faces(source_file, target_file)
-    print("Face matches: " + str(face_matches))
+# def main():
+#     photo='Linux.png'
+#     bucket='6770-project'
+#     client = boto3.client('rekognition')
+#     face_count=detect_faces2(client, photo, bucket)
+#     if face_count:
+#         print("Faces detected: " + str(face_count))
+#     else:
+#         print('No face detected.')
+
+# def main():
+#     source_file='vids/buffer/target.jpg'
+#     target_file='vids/12-01-2021-19-44-13.jpg'
+#     face_matches=compare_faces(source_file, target_file)
+#     print("Face matches: " + str(face_matches))
 
 # def main():
 #     bucket="6770-project"
@@ -129,6 +180,13 @@ def main():
 
 #     faces_count=show_faces(photo,bucket)
 #     print("faces detected: " + str(faces_count))
+
+def main():
+    photo='weapon2.jpeg'
+    bucket='6770-project'
+    label_count, prob=violence_detection(photo, bucket)
+    print("Labels detected: " + str(label_count), '\nProbability: ' + str(prob))
+
 
 if __name__ == "__main__":
     main()

@@ -24,16 +24,17 @@ def run():
     isDetected = False
     count_time = 0
     confidence = 0
+    frames_count = 0
 
     # fourcc = cv.VideoWriter_fourcc(*'MP4V')
     # fourcc = 0x7634706d
     # fourcc = cv.VideoWriter_fourcc(*'X264')
     # fourcc = cv.VideoWriter_fourcc(*'avc1')
-    fourcc = cv.VideoWriter_fourcc(*'H264')
+    # fourcc = cv.VideoWriter_fourcc(*'H264')
     # fourcc = 0x31637661
     # fourcc = cv.VideoWriter_fourcc('a','v','c','1')
     # print(fourcc)
-    # fourcc = cv.VideoWriter_fourcc(*'XVID')
+    fourcc = cv.VideoWriter_fourcc(*'XVID')
 
     # assign camera
     cap = cv.VideoCapture(0)
@@ -52,9 +53,16 @@ def run():
 
         if isDetected:
             # record a 5 seconds video
-            if time.time() - t < 5:
+            # if time.time() - t < 5:
+            if frames_count < 50:
+                frames_count += 1
+                # write one frame to the video
                 recorder.write(frame)
                 cv.imshow('frame', frame)
+                # if frames_count % 10 == 0:
+                    # img_name = name_pic_prefix+'pic_%d.jpg' % (frames_count//10)
+                    # cv.imwrite(img_name, frame)
+                    # upload_file2(s3_client, img_name, '6770-project')
                 if cv.waitKey(1) == ord('q'):
                     print('Saved as %s' % (name))
                     break
@@ -83,12 +91,13 @@ def run():
             print('Hit!')
             t = time.time()
             isDetected = True
+            frames_count = 0
             count_time += 1
-            # name = 'vids/' + datetime.datetime.now().strftime("%m-%d-%Y-%H-%M-%S") + '.avi'
-            name = 'vids/' + datetime.datetime.now().strftime("%Y-%m-%d-%H%M%S") + '.mp4'
-            name_pic = name[:-4]+'.jpg'
-            print(name_pic)
+            name = 'vids/' + datetime.datetime.now().strftime("%Y-%m-%d-%H%M%S") + '_vid.avi'
+            # name = 'vids/' + datetime.datetime.now().strftime("%Y-%m-%d-%H%M%S") + '.mp4'
+            name_pic = name[:-7] + 'pic.jpg'
             cv.imwrite(name_pic, frame)
+            upload_file2(s3_client, name_pic, '6770-project')
             recorder = cv.VideoWriter(name, fourcc, 10.0, (640,480))
             recorder.write(frame)
             print('Recording...')

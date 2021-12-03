@@ -60,7 +60,7 @@ def upload_file2(s3_client, file_name, bucket, object_name=None):
     # s3_client = boto3.client('s3')
     try:
         response = s3_client.upload_file(file_name, bucket, object_name, Callback=ProgressPercentage(file_name))
-        print('\n')
+        # print('\n')
     except ClientError as e:
         logging.error(e)
         return False
@@ -84,5 +84,5 @@ if __name__ == '__main__':
     # s3_client.Bucket('6770-project').put_object(Key='cactus.jpg', Body=data)
     
     print('Uploading image...')  
-    name = 'vids/12-01-2021-17-01-17.mp4'
+    name = 'vids/buffer/target.jpg'
     upload_file2(s3_client, name, '6770-project')
