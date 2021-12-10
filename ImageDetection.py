@@ -70,6 +70,7 @@ def violence_detection(photo, bucket):
     
     violence_count = 0
     violence_list = []
+    violence_conf = 0
     violence_conf_list = []
     
     for label in response['ModerationLabels']:
@@ -78,8 +79,13 @@ def violence_detection(photo, bucket):
             violence_count += 1
             violence_list.append(label['Name'])
             violence_conf_list.append(label['Confidence'])
+
+    if len(violence_conf_list):
+        violence_conf = max(violence_conf_list)
+    else:
+        violence_conf = 0
         
-    return violence_count, max(violence_conf_list)
+    return violence_count, violence_conf
 
 
 
@@ -182,7 +188,8 @@ def detect_faces2(client, photo, bucket):
 #     print("faces detected: " + str(faces_count))
 
 def main():
-    photo='weapon2.jpeg'
+    photo='2021-12-05-180834_pic.jpg'
+    photo = 'weapon2.jpeg'
     bucket='6770-project'
     label_count, prob=violence_detection(photo, bucket)
     print("Labels detected: " + str(label_count), '\nProbability: ' + str(prob))

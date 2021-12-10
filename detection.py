@@ -7,7 +7,12 @@ from UploadAWS import upload_file, upload_file2
 import threading
 import boto3
 from ImageDetection import compare_faces
+from lambda_function import face_analysis
+from email_sender import email_raw
 
+
+# shortest time between two email
+TIME_EMAIL = 20
 
 # the length of the video as seconds
 VIDEO_LENGTH = 5
@@ -27,6 +32,10 @@ FOURCC = cv.VideoWriter_fourcc(*'XVID')
 # size of frames in the video, depends on the camera
 RESOLUTION = (640,480)
 
+name = None
+name_temp = None
+name_pic = None
+
 
 def run():
     """
@@ -35,6 +44,8 @@ def run():
 
     # s3_client = boto3.resource('s3')
     s3_client = boto3.client('s3')
+
+    rek = boto3.client('rekognition')
 
     # visual detecting model - yolov5 nano version
     model = torch.hub.load('ultralytics/yolov5', 'yolov5n')
@@ -46,6 +57,8 @@ def run():
     # frame counter 
     frames_count = 0
 
+    t = time.time()
+
     # assign camera
     cap = cv.VideoCapture(0)
     if not cap.isOpened():
@@ -54,7 +67,7 @@ def run():
 
     while True:
         # wait for a while
-        time.sleep(TIME_INTERVAL = 1e-1)
+        time.sleep(TIME_INTERVAL)
         # Capture frame-by-frame from camera
         ret, frame = cap.read()
         # if frame is read correctly ret is True
@@ -80,6 +93,9 @@ def run():
             else:
                 print('Video saved as %s' % (name))
                 upload_file2(s3_client, name, '6770-project')
+                if time.time() - t > TIME_EMAIL:
+                    t = time.time()
+                    analysis_email(rek, name[5:], name_pic[5:])
                 isDetected = False
                 
         # detection and classification
@@ -100,6 +116,7 @@ def run():
 
         # only when person is detected for more than 4 continuous times, record the video.
         if confidence >=4:
+            confidence = 0
             # confident enough that a person is detected
             print('Hit!')
             # start recording from the next iteration
@@ -129,5 +146,22 @@ def run():
     cv.destroyAllWindows()
 
 
+def analysis_email(rek, name_vid, name_pic):
+
+
+    faces_count, stranger_count, violence_count, violence_prob = face_analysis(rek, name_pic, '6770-project')
+    # stranger_count = 1
+    # violence_prob = 0.8
+    if stranger_count>0:
+        response = email_raw('6770-project', name_vid, name_pic, stranger_count, violence_prob)
+
+
+
+
 if __name__ == '__main__':
     run()
+    # thread_detection = threading.Thread(target=run)
+    # thread_analysis = threading.Thread(target=analysis_email)
+
+    # thread_detection.start()
+    # thread_analysis.start()

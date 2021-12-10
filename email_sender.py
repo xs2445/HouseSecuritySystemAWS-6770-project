@@ -97,11 +97,11 @@ from email.mime.application import MIMEApplication
 
 
 
-def email_raw():
+def email_raw(bucket, key, img_name, stranger_count, violence_prob=0):
 
     # Replace sender@example.com with your "From" address.
     # This address must be verified with Amazon SES.
-    SENDER = "Sender Name <sunxhbill@gmail.com>"
+    SENDER = "HouseSecurityAlert <sunxhbill@gmail.com>"
 
     # Replace recipient@example.com with a "To" address. If your account 
     # is still in the sandbox, this address must be verified.
@@ -116,25 +116,41 @@ def email_raw():
     AWS_REGION = "us-east-2"
 
     # The subject line for the email.
-    SUBJECT = "Customer service contact info"
+    SUBJECT = "{number} Strangers Just Passed By Your House".format(number=stranger_count)
 
     # The full path to the file that will be attached to the email.
     # ATTACHMENT = "path/to/customers-to-contact.xlsx"
-    ATTACHMENT = "vids/2021-12-02-210546_pic_4.jpg"
+    ATTACHMENT = "vids/"+img_name
 
     # The email body for recipients with non-HTML email clients.
-    BODY_TEXT = "Hello,\r\nPlease see the attached file for a list of customers to contact."
-
+    BODY_TEXT = ("Amazon SES Test (Python)\r\n"
+                 "This email was sent with Amazon SES using the "
+                 "AWS SDK for Python (Boto)."
+                )
+                
     # The HTML body of the email.
-    BODY_HTML = """\
-    <html>
+    BODY_HTML = """<html>
     <head></head>
     <body>
-    <h1>Hello!</h1>
-    <p>Please see the attached file for a list of customers to contact.</p>
+      <h1>{number} Strangers Just Passed By Your House</h1>
+      <p>Your AWS S3 bucket {bucket} received a video {object} showing somebody just passed by your house.</p>
     </body>
     </html>
-    """
+    """.format(number=stranger_count, bucket=bucket, object=key)
+
+    if violence_prob:
+        SUBJECT = "Violence Happening around your house!!"
+        BODY_HTML = """<html>
+        <head></head>
+        <body>
+        <h1>Probability of Violence Happenning is {prob}%!</h1>
+        <p>{number} Strangers Just Passed By Your House. Your AWS S3 bucket {bucket} received a video {object} showing somebody just passed by your house.</p>
+        </body>
+        </html>
+        """.format(prob=int(violence_prob), number=stranger_count, bucket=bucket, object=key)
+
+
+
 
     # The character encoding for the email.
     CHARSET = "utf-8"
