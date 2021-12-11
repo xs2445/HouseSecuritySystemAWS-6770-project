@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<title>W3.CSS Template</title>
+<title>Monitoring System</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -12,7 +12,7 @@ body {font-family: "Lato", sans-serif}
 </style>
 
 
-<script src="UpdateEmail.js"></script>
+<!-- <script src="UpdateEmail.js"></script> -->
 
 
 <body>
@@ -22,22 +22,18 @@ body {font-family: "Lato", sans-serif}
     
 <!-- Navbar -->
 <div class="w3-top">
-  <div class="w3-bar w3-black w3-card">
-    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">HOME</a>
-    <a href="#band" class="w3-bar-item w3-button w3-padding-large w3-hide-small">BAND</a>
-    <a href="#tour" class="w3-bar-item w3-button w3-padding-large w3-hide-small">TOUR</a>
-    <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">CONTACT</a>
-    <div class="w3-dropdown-hover w3-hide-small">
-      <button class="w3-padding-large w3-button" title="More">MORE <i class="fa fa-caret-down"></i></button>     
-      <div class="w3-dropdown-content w3-bar-block w3-card-4">
-        <a href="#" class="w3-bar-item w3-button">Merchandise</a>
-        <a href="#" class="w3-bar-item w3-button">Extras</a>
-        <a href="#" class="w3-bar-item w3-button">Media</a>
-      </div>
+    <div class="w3-bar w3-black w3-card">
+        <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">HOME</a>
+        <a href="#band" class="w3-bar-item w3-button w3-padding-large w3-hide-small">LOG</a>
+        <a href="#tour" class="w3-bar-item w3-button w3-padding-large w3-hide-small">TARGET</a>
+        <a href="#report" class="w3-bar-item w3-button w3-padding-large w3-hide-small">REPORT</a>
+        <a href="#video" class="w3-bar-item w3-button w3-padding-large w3-hide-small">VIDEO</a>
+        <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">EDIT</a>
+        <a href="#more" class="w3-bar-item w3-button w3-padding-large w3-hide-small">MORE</a>
+        
+        <a class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right">House Security System</a>
     </div>
-    <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>
-  </div>
 </div>
 
 <!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
@@ -51,161 +47,213 @@ body {font-family: "Lato", sans-serif}
 <!-- Page content -->
 <div class="w3-content" style="max-width:2000px;margin-top:46px">
 
-  <!-- Automatic Slideshow Images -->
-  <div class="mySlides w3-display-container w3-center">
-    <img src="imgs/cu.jpg" style="width:100%">
-    <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-      <h3>Los Angeles</h3>
-      <p><b>We had the best time playing at Venice Beach!</b></p>   
+    <!-- Automatic Slideshow Images -->
+    <div class="mySlides w3-display-container w3-center">
+        <img src="imgs/cover1.jpg" style="width:100%">
+        <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+            <h3>Monitor Your House</h3>
+            <p><b>We keep your house safe 24*7.</b></p>   
+        </div>
     </div>
-  </div>
-  <div class="mySlides w3-display-container w3-center">
-    <img src="imgs/cue2.png" style="width:100%">
-    <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-      <h3>New York</h3>
-      <p><b>The atmosphere in New York is lorem ipsum.</b></p>    
+    <div class="mySlides w3-display-container w3-center">
+        <img src="imgs/cover2.jpg" style="width:100%">
+        <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+            <h3>Based on AWS</h3>
+            <p><b>High reliability and more accurate.</b></p>    
+        </div>
     </div>
-  </div>
-  <div class="mySlides w3-display-container w3-center">
-    <img src="/w3images/chicago.jpg" style="width:100%">
-    <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-      <h3>Chicago</h3>
-      <p><b>Thank you, Chicago - A night we won't forget.</b></p>    
+
+    <div class="mySlides w3-display-container w3-center">
+        <img src="imgs/cover3.jpg" style="width:100%">
+        <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+            <h3>Cloumbia University</h3>
+            <p><b>This is a project of course ELEN6770 in Cloumbia University.</b></p>    
+        </div>
     </div>
-  </div>
+
+    <div class="mySlides w3-display-container w3-center">
+        <img src="imgs/cover4.jpg" style="width:100%">
+        <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+            <h3>Based on Rekognition</h3>
+            <p><b>Recognitize strangers and violence.</b></p>    
+        </div>
+    </div>
 
   <!-- The Band Section -->
-  <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
-    <h2 class="w3-wide">THE BAND</h2>
-    <p class="w3-opacity"><i>We love music</i></p>
-    <p class="w3-justify">We have created a fictional band website. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-      ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur
-      adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    <div class="w3-row w3-padding-32">
-      <div class="w3-third">
-        <p>Name</p>
-        <img src="/w3images/bandmember.jpg" class="w3-round w3-margin-bottom" alt="Random Name" style="width:60%">
-      </div>
-      <div class="w3-third">
-        <p>Name</p>
-        <img src="/w3images/bandmember.jpg" class="w3-round w3-margin-bottom" alt="Random Name" style="width:60%">
-      </div>
-      <div class="w3-third">
-        <p>Name</p>
-        <img src="/w3images/bandmember.jpg" class="w3-round" alt="Random Name" style="width:60%">
-      </div>
+    <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
+        <h2 class="w3-wide">HISTORY CAPTURES</h2>
+        <p class="w3-opacity"><i>Stay Safe!</i></p>
+        <p class="w3-justify">Here shows 3 previous analysis of captured strangers passed by your house. </p>
+
+
+        <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
+            
+            <div class="w3-third w3-margin-bottom">
+                <img src="imgs/history1.jpg" alt="New York" style="width:100%" class="w3-hover-opacity">
+                <div class="w3-container w3-white">
+                    <!-- <p><b>New York</b></p> -->
+                    <p class="w3-opacity" style="color:red">11:12pm Sun 5 Dec 2021</p>
+                    <p style="color:red">Violence detected!</p>
+                    <p style="color:red">Probability is 50%!</p>
+                    <!-- <button class="w3-button w3-black w3-margin-bottom" onclick="document.getElementById('ticketModal').style.display='block'">Buy Tickets</button> -->
+                </div>
+            </div>
+            <div class="w3-third w3-margin-bottom">
+                <img src="imgs/history2.jpg" class="w3-content w3-center" alt="Random Name" style="width:100%"><br>
+                <div class="w3-container w3-white">
+                    <!-- <p><b>Paris</b></p> -->
+                    <p class="w3-opacity">3:46pm Sun 4 Dec 2021</p>
+                    <p>No violence behavior detected.</p>
+                    <!-- <button class="w3-button w3-black w3-margin-bottom" onclick="document.getElementById('ticketModal').style.display='block'">Buy Tickets</button> -->
+                </div>
+            </div>
+            <div class="w3-third w3-margin-bottom">
+                <img src="imgs/history3.jpg" class="w3-content w3-center" alt="Random Name" style="width:100%"><br>
+                <div class="w3-container w3-white">
+                    <!-- <p><b>San Francisco</b></p> -->
+                    <p class="w3-opacity">8:52am Sun 4 Dec 2021</p>
+                    <p>No violence behavior detected..</p>
+                    <!-- <button class="w3-button w3-black w3-margin-bottom" onclick="document.getElementById('ticketModal').style.display='block'">Buy Tickets</button> -->
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
   <!-- The Tour Section -->
   <div class="w3-black" id="tour">
     <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
-      <h2 class="w3-wide w3-center">TOUR DATES</h2>
-      <p class="w3-opacity w3-center"><i>Remember to book your tickets!</i></p><br>
+      <h2 class="w3-wide w3-center">The House Owner</h2>
+      <p class="w3-opacity w3-center"><i>This is the image for identification!</i></p><br>
 
-      <ul class="w3-ul w3-border w3-white w3-text-grey">
-        <li class="w3-padding">September <span class="w3-tag w3-red w3-margin-left">Sold out</span></li>
-        <li class="w3-padding">October <span class="w3-tag w3-red w3-margin-left">Sold out</span></li>
-        <li class="w3-padding">November <span class="w3-badge w3-right w3-margin-right">3</span></li>
-      </ul>
+      <img src="imgs/target.jpg" class="w3-content w3-center" alt="Random Name" style="width:100%"><br>
 
-      <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
-        <div class="w3-third w3-margin-bottom">
-          <img src="/imgs/cu.jpg" alt="New York" style="width:100%" class="w3-hover-opacity">
-          <div class="w3-container w3-white">
-            <p><b>New York</b></p>
-            <p class="w3-opacity">Fri 27 Nov 2016</p>
-            <p>Praesent tincidunt sed tellus ut rutrum sed vitae justo.</p>
-            <button class="w3-button w3-black w3-margin-bottom" onclick="document.getElementById('ticketModal').style.display='block'">Buy Tickets</button>
-          </div>
-        </div>
-        <div class="w3-third w3-margin-bottom">
-          <img src="/w3images/paris.jpg" alt="Paris" style="width:100%" class="w3-hover-opacity">
-          <div class="w3-container w3-white">
-            <p><b>Paris</b></p>
-            <p class="w3-opacity">Sat 28 Nov 2016</p>
-            <p>Praesent tincidunt sed tellus ut rutrum sed vitae justo.</p>
-            <button class="w3-button w3-black w3-margin-bottom" onclick="document.getElementById('ticketModal').style.display='block'">Buy Tickets</button>
-          </div>
-        </div>
-        <div class="w3-third w3-margin-bottom">
-          <img src="/w3images/sanfran.jpg" alt="San Francisco" style="width:100%" class="w3-hover-opacity">
-          <div class="w3-container w3-white">
-            <p><b>San Francisco</b></p>
-            <p class="w3-opacity">Sun 29 Nov 2016</p>
-            <p>Praesent tincidunt sed tellus ut rutrum sed vitae justo.</p>
-            <button class="w3-button w3-black w3-margin-bottom" onclick="document.getElementById('ticketModal').style.display='block'">Buy Tickets</button>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 
-  <!-- Ticket Modal -->
-  <div id="ticketModal" class="w3-modal">
-    <div class="w3-modal-content w3-animate-top w3-card-4">
-      <header class="w3-container w3-teal w3-center w3-padding-32"> 
-        <span onclick="document.getElementById('ticketModal').style.display='none'" 
-       class="w3-button w3-teal w3-xlarge w3-display-topright">×</span>
-        <h2 class="w3-wide"><i class="fa fa-suitcase w3-margin-right"></i>Tickets</h2>
-      </header>
-      <div class="w3-container">
-        <p><label><i class="fa fa-shopping-cart"></i> Tickets, $15 per person</label></p>
-        <input class="w3-input w3-border" type="text" placeholder="How many?">
-        <p><label><i class="fa fa-user"></i> Send To</label></p>
-        <input class="w3-input w3-border" type="text" placeholder="Enter email">
-        <button class="w3-button w3-block w3-teal w3-padding-16 w3-section w3-right">PAY <i class="fa fa-check"></i></button>
-        <button class="w3-button w3-red w3-section" onclick="document.getElementById('ticketModal').style.display='none'">Close <i class="fa fa-remove"></i></button>
-        <p class="w3-right">Need <a href="#" class="w3-text-blue">help?</a></p>
-      </div>
+
+
+  <!-- The Report Section -->
+    <div class="" id="report">
+    <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+        <h2 class="w3-wide w3-center">Report</h2>
+        <!-- <p class="w3-opacity  w3-center"><i>Xinghua Su, uni: xs2445</i></p>
+        <p class="w3-opacity  w3-center"><i>Tianqi Ren, uni: tr2669</i></p> -->
+        <h3 class="w3-wide">Introduction</h3>
+        <p class="w3-justify">Trespassing, break-ins and stealing are serious problems for residents. 
+            Traditionally, people choose to install CCTV (closed circuit television) to record the crimes. 
+            However, this kind of device has huge drawbacks. They need the owner to actively log into the system to check the videos. 
+            Besides, it has a time delay. House owners can only get the information after the crime has already happened. 
+            As a result, we came up with a solution to combine edge devices and cloud services to provide house owners 
+            with real-time monitoring and alerting. </p>
+        <p class="w3-justify">The project is uploaded to Github:&nbsp;&nbsp; 
+            <a href="https://github.com/xs2445/HouseSecuritySystemAWS-6770-project">
+                https://github.com/xs2445/HouseSecuritySystemAWS-6770-project</a></p><br>
+
+        <img src="imgs/report1.png" class="w3-content w3-center" alt="Random Name" style="width:100%">
+        <p class="w3-justify w3-center">Fig 1 System Structure</p>
+
+        <h3 class="w3-wide">System Construction</h3>
+        <p class="w3-justify">The idea of this project is to recognize strangers and alert the house owners. 
+            Because of the limit of edge devices, we cannot implement all the analysis tasks on it. 
+            The edge devices only take a small part of the detection task. The analysis of person identification 
+            needs to be moved on the cloud. The whole system contains three parts: detection and uploading, 
+            analyzing and email sending. </p>
+
+        <ul class="w3-justify"><li><strong>Detection and Uploading</strong></li></ul>
+        <p class="w3-justify">We use our camera on our own PCs to simulate the monitor camera. 
+            It will try to open the file and if it succeeds, it will detect objects based on the YOLOv5 nano 
+            version in real-time and record a short video when a person is detected. To make the system more robust, 
+            we set a confidence variable that counts the time a person is continuously detected. We assume a person 
+            is detected only when the class “person” is detected for continuous four time. Then a user-set length of 
+            the video and the first frame of that video  is recorded and uploaded to the S3 bucket named “6770 project”. 
+            When everything is done, it will release everything. We use a defined function “upload files” to upload 
+            files to S3 buckets. </p>
+            
+        <ul class="w3-justify"><li><strong>Analyzing</strong></li></ul>
+        <p class="w3-justify">The goal of analyzing is to recognize the strangers and implement email sending when 
+            there is a stranger detected. It is also able to realize the violence detection when a weapon is detected 
+            with the stranger. This behaviour will cause the sent email to be different in contents. The email will notify 
+            the house owner of the possibility of violence happening. </p>
+        <p class="w3-justify">To recognize the identification of a detected person, we used AWS service “rekognition” to 
+            visually compare the face of that stranger with the face of house owners. There are some face details of familiar 
+            people being stored in S3 buckets in advance. When the video is uploaded to S3 buckets, it will capture a 
+            picture from the first frame of the video and then compare the person with the face details that have already 
+            been stored. Then we use the Rekognition service to analyze the faces of the people detected and count the 
+            number of strangers. We set a similarity threshold to make the result more accurate. Additionally, Some 
+            characteristics of common weapons are stored in S3 as well. Such as guns. As a result, the system is also 
+            able to tell if the person is carrying a weapon to make sure of the user’s security. </p>
+        <img src="imgs/report2.png" class="w3-content w3-center" alt="Random Name" style="width:100%">
+        <p class="w3-justify w3-center">Fig 2 Logic Flowchart</p>
+
+        <ul class="w3-justify"><li><strong>Email Sending</strong></li></ul>
+        <p class="w3-justify">Finally, we use Lambda and SES services to send an email to make an alert. We design the 
+            subject of the email to be security alert, and the context to be “ ‘number of strangers’ Strangers Just Passed 
+            By Your House”. We also attach the picture of the strangers to the email. The sent email will be like this:</p>
+        <img src="imgs/report3.png" class="w3-content w3-center" alt="Random Name" style="width:100%">
+        <p class="w3-justify w3-center">Fig 3 Received email when no violence detected</p>
+        <img src="imgs/report4.png" class="w3-content w3-center" alt="Random Name" style="width:100%">
+        <p class="w3-justify w3-center">Fig 4 Received email when violent behavior is detected</p>
+
+        <ul class="w3-justify"><li><strong>User Interface</strong></li></ul>
+        <p class="w3-justify">To visualize the result and also enable the user to edit their profiles like receiving email 
+            and images of house owners, we developed a website as the user interface. The website is static based on AWS S3, 
+            which allows us to use API to invoke lambda functions. Create two lambda functions. One for updating email addresses 
+            and appending them into the csv file, the other for uploading the target image and replacing the original one. 
+            Then create api gateways as triggers of lambda functions, embed the http request into the static website. 
+            Finally, to make the fixed domain of our website easy to remember, a fixed domain is attached to the website. 
+            Users can conveniently visit the website by <a href="http://monitor6770.click/">monitor6770.click</a>.</p>
+
     </div>
-  </div>
+    </div>
+
+
+
+
+
+    <div class="w3-black" id="video">
+        <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+            <h2 class="w3-wide w3-center">Video</h2>
+            <p class="w3-opacity w3-center"><i>This video demonstrates basic functions of this project.</i></p><br>
+            <video class="w3-center" style="width:100%" controls>
+                <source src="imgs/Output_original.mp4" type="video/mp4">
+                <!-- <source src="movie.ogg" type="video/ogg"> -->
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+    </div>
+
+
 
   <!-- The Contact Section -->
-  <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="contact">
-    <h2 class="w3-wide w3-center">House Owner?</h2>
-    <p class="w3-opacity w3-center"><i>Add your email to the receiving list!</i></p>
-    <div class="w3-row w3-padding-32">
-      <div class="w3-col m6 w3-large w3-margin-bottom">
-        <!-- <i class="fa fa-map-marker" style="width:30px"></i> Chicago, US<br>
-        <i class="fa fa-phone" style="width:30px"></i> Phone: +00 151515<br> -->
-        <i class="fa fa-envelope" style="width:30px"> </i> Email:  address@mail.com<br>
+    <div class="" id="contact">
+    <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+        <h2 class="w3-wide w3-center">House Owner?</h2>
+        <p class="w3-opacity w3-center"><i>Add your email to the receiving list!</i></p>
+        <div class="w3-row w3-padding-32">
+            <div class="w3-col m6 w3-large w3-margin-bottom">
+                <!-- <i class="fa fa-map-marker" style="width:30px"></i> Chicago, US<br>
+                <i class="fa fa-phone" style="width:30px"></i> Phone: +00 151515<br> -->
+                <i class="fa fa-envelope" style="width:30px"> </i> Email:  address@mail.com<br>
+            </div>
+            <div class="w3-col m6">
+                <form method="ANY" action="https://jyovx7vkkl.execute-api.us-east-2.amazonaws.com">
+                <input class="w3-input w3-border" type="email" name="email" style="height:35px;" id="email-input" placeholder="Email" class="form-control" style="width:100%;"/>
+                <button class="w3-button w3-black w3-section w3-right" type="submit">SEND</button>
+                </form>
+            </div>
+        </div>
 
-        
+        <div class="w3-row w3-padding-32 w3-center">
+            <h2 class="mb40">Replace Image of House Owners </h2>
+            <form action="/action_page.php">
+                <input type="file" id="myFile" name="filename">
+                <button type="button" onClick="submitToAPI(event)" class="btn btn-lg" style="margin-top:20px;">Submit</button>
+            </form>
+        </div>
 
-
-
-      </div>
-      <div class="w3-col m6">
-        <form method="ANY" action="https://jyovx7vkkl.execute-api.us-east-2.amazonaws.com">
-          <!-- <div class="w3-row-padding" style="margin:0 -16px 8px -16px"> -->
-            <!-- <div class="w3-half">
-              <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
-            </div> -->
-            <!-- <div class="w3-half">
-              <input class="w3-input w3-border" type="email" placeholder="Email" required name="Email">
-            </div> -->
-          <!-- </div> -->
-          <!-- <input class="w3-input w3-border" type="text" placeholder="Message" required name="Message"> -->
-          <input class="w3-input w3-border" type="email" name="email" style="height:35px;" id="email-input" placeholder="Email" class="form-control" style="width:100%;"/>
-          <button class="w3-button w3-black w3-section w3-right" type="submit">SEND</button>
-        </form>
-      </div>
     </div>
-  </div>
-
-
-<div class="w3-row w3-padding-32 w3-center">
-<h2 class="mb40">Replace Image of House Owners </h2>
-<!-- <h2 class="w3-center"> -->
-  <form action="/action_page.php">
-    <input type="file" id="myFile" name="filename">
-    <button type="button" onClick="submitToAPI(event)" class="btn btn-lg" style="margin-top:20px;">Submit</button>
-    <!-- <input type="submit"> -->
-</form>
-<!-- </h2>  -->
-</div>
-
+    </div>
 
 
 
@@ -218,23 +266,7 @@ body {font-family: "Lato", sans-serif}
 
 
 
-<!-- 
-<h1>Adding 'a' and 'b'</h1>
-
-  a: <input type="number" name="a" id="a"><br>
-  b: <input type="number" name="b" id="b"><br>
-  <button onclick="add(document.getElementById('a').value,document.getElementById('b').value)">Add</button>
-
-<script>
-  function add(a,b) {
-    var sum = parseInt(a) + parseInt(b);
-    alert(sum);
-  }
-</script>
-
- -->
-
-<div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
+<div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="more">
     <h2 class="w3-wide">Receiving Email List:</h2>
     <p class="w3-opacity"><i>Here shows the full receiving list!</i></p>
     <object class="w3-center" width="910" height="340" type="text/plain" data="EmailList.txt" style="overflow: hidden;"></object>
@@ -248,16 +280,13 @@ body {font-family: "Lato", sans-serif}
 </div>
 
 <!-- Image of location/map -->
-<img src="/w3images/map.jpg" class="w3-image w3-greyscale-min" style="width:100%">
+<!-- <img src="/w3images/map.jpg" class="w3-image w3-greyscale-min" style="width:100%"> -->
 
 <!-- Footer -->
 <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
-  <i class="fa fa-facebook-official w3-hover-opacity"></i>
-  <i class="fa fa-instagram w3-hover-opacity"></i>
-  <i class="fa fa-snapchat w3-hover-opacity"></i>
-  <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-  <i class="fa fa-twitter w3-hover-opacity"></i>
-  <i class="fa fa-linkedin w3-hover-opacity"></i>
+  <i class="fa fa-github w3-hover-opacity"><a class="w3-medium" href="https://github.com/xs2445/HouseSecuritySystemAWS-6770-project">Github</a></i>
+  <p class="w3-medium">A website by Xinghua Sun&nbsp;&nbsp;&nbsp;&nbsp;<a href="mailto:xs2445@email.com">xs2445@columbia.edu</a></p>
+  <p class="w3-medium">House Monitoring System --- a project of course ELEN6770</p>
   <p class="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
 </footer>
 
@@ -295,10 +324,6 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
-
-
-
-
 
 
 

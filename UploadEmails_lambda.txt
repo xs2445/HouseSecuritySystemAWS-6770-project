@@ -1,0 +1,60 @@
+import json
+import boto3
+import csv 
+
+BUCKET_NAME = '6770-project'
+
+# call s3 bucket
+s3 = boto3.resource('s3')
+bucket = s3.Bucket(BUCKET_NAME) # Enter your bucket name, e.g 'Data'
+# key path, e.g.'customer_profile/Reddit_Historical_Data.csv'
+key = 'EmailList.csv'
+txt_key = 'EmailList.txt'
+
+
+
+def lambda_handler(event, context):
+
+    email = event['queryStringParameters']['email']
+    print("Received email is: ", email)
+    
+    print("Writing to EmailList.csv ...")
+    
+    
+    # download s3 csv file to lambda tmp folder
+    local_file_name = '/tmp/test.csv' #
+    s3.Bucket(BUCKET_NAME).download_file(key,local_file_name)
+    
+    # list you want to append
+    lists = [email]
+    # write the data into '/tmp' folder
+    with open('/tmp/test.csv','r') as infile:
+        reader = list(csv.reader(infile))
+        reader = reader[::-1] # the date is ascending order in file
+        reader.insert(0,lists)
+    
+    # write emails back to the csv file
+    with open('/tmp/test.csv', 'w', newline='') as outfile:
+        writer = csv.writer(outfile)
+        for line in reversed(reader): # reverse order
+            writer.writerow(line)
+                
+    # write to the txt file for displaying on website
+    with open('/tmp/test.txt', "w+") as txt_output_file:
+        with open('/tmp/test.csv', 'r') as outfile:
+            # with open(csv_file, "r") as my_input_file:
+            [ txt_output_file.write(" ".join(row)+'\n') for row in csv.reader(outfile)]
+    txt_output_file.close()
+    
+    # upload file from tmp to s3 key
+    bucket.upload_file('/tmp/test.csv', key, ExtraArgs={'ACL':'public-read'})
+    bucket.upload_file('/tmp/test.txt', txt_key, ExtraArgs={'ACL':'public-read'})
+    
+
+    message = 'Successfully Added '+email+' to the Receiving List!'
+    
+    return{
+    'statusCode': 200,
+    'headers': {'Content-Type': 'application/json'},
+    'body': json.dumps(message)
+    }

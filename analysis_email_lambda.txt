@@ -1,0 +1,301 @@
+import json
+import urllib.parse
+import boto3
+from botocore.exceptions import ClientError
+import os
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.image import MIMEImage
+from email.mime.application import MIMEApplication
+import io
+import base64
+# from PIL import Image
+
+
+TARGETIMAGE = 'target.jpg'
+
+
+def send_email(bucket, key, stranger_count, violence_prob=0):
+    """
+    Send email to the house owner
+    Inputs:
+    - bucket: name of the s3 bucket storing pics and videos
+    - key: the name of the file
+    - stranger_count: the number of strangers detected
+    - violence_prob: the probability a violence is happenning, denotes the dangerous level
+    """
+    
+    # The character encoding for the email.
+    CHARSET = "UTF-8"
+    
+    SENDER = "HouseSecurityAlert <sunxhbill@gmail.com>"
+    
+    RECIPIENT = "xs2445@columbia.edu"
+    
+    AWS_REGION = "us-east-2"
+    
+    # The subject line for the email.
+    SUBJECT = "{number} Strangers Just Passed By Your House".format(number=stranger_count)
+    
+    # Create a new SES resource and specify a region.
+    email_client = boto3.client('ses',region_name=AWS_REGION)
+    
+    # The email body for recipients with non-HTML email clients.
+    BODY_TEXT = ("Amazon SES Test (Python)\r\n"
+                 "This email was sent with Amazon SES using the "
+                 "AWS SDK for Python (Boto)."
+                )
+                
+    # The HTML body of the email.
+    BODY_HTML = """<html>
+    <head></head>
+    <body>
+      <h1>{number} Strangers Just Passed By Your House</h1>
+      <p>Your AWS S3 bucket {bucket} received a video {object} showing somebody just passed by your house.</p>
+    </body>
+    </html>
+    """.format(number=stranger_count, bucket=bucket, object=key)         
+    
+    response = email_client.send_email(
+            Destination={
+                'ToAddresses': [
+                    RECIPIENT,
+                ],
+            },
+            Message={
+                'Body': {
+                    'Html': {
+                        'Charset': CHARSET,
+                        'Data': BODY_HTML,
+                    },
+                    'Text': {
+                        'Charset': CHARSET,
+                        'Data': BODY_TEXT,
+                    },
+                },
+                'Subject': {
+                    'Charset': CHARSET,
+                    'Data': SUBJECT,
+                },
+            },
+            Source=SENDER,
+            # If you are not using a configuration set, comment or delete the
+            # following line
+            # ConfigurationSetName=CONFIGURATION_SET,
+        )
+        
+    return response
+    
+    
+def send_email_raw(bucket, vid_name, stranger_count, img_name, violence_prob=0):
+    """
+    Send email to the house owner with image captured embedded in the email
+    Inputs:
+    - bucket: name of the s3 bucket storing pics and videos
+    - key: the name of the file
+    - stranger_count: the number of strangers detected
+    - img_name: the name of the image
+    - violence_prob: the probability a violence is happenning, denotes the dangerous level
+    """
+
+    # Replace sender@example.com with your "From" address.
+    # This address must be verified with Amazon SES.
+    SENDER = "House Security Alert <sunxhbill@gmail.com>"
+
+    # Replace recipient@example.com with a "To" address. If your account 
+    # is still in the sandbox, this address must be verified.
+    RECIPIENT = "xs2445@columbia.edu"
+
+    # If necessary, replace us-west-2 with the AWS Region you're using for Amazon SES.
+    AWS_REGION = "us-east-2"
+
+    # The subject line for the email.
+    SUBJECT = "{number} Strangers Just Passed By Your House".format(number=stranger_count)
+
+    # The full path to the file that will be attached to the email.
+    s3_connection = boto3.resource('s3')
+    s3_object = s3_connection.Object(bucket,img_name)
+    s3_response = s3_object.get()
+
+    img = s3_response['Body'].read()
+    print(type(img))
+    img_object = base64.b64encode(img)
+    print(type(img_object))
+    # image=Image.open(stream)
+    
+    ATTACHMENT = img_object
+
+    # The email body for recipients with non-HTML email clients.
+    BODY_TEXT = "Hello,\r\nPlease see the attached file for a list of customers to contact."
+
+    # The HTML body of the email.
+    BODY_HTML = """<html>
+    <head></head>
+    <body>
+      <h1>{number} Strangers Just Passed By Your House</h1>
+      <p>Your AWS S3 bucket {bucket} received a video {object} showing somebody just passed by your house. Please check the image captured attached to this email.</p>
+    </body>
+    </html>
+    """.format(number=stranger_count, bucket=bucket, object=vid_name)   
+
+    # The character encoding for the email.
+    CHARSET = "utf-8"
+
+    # Create a new SES resource and specify a region.
+    client = boto3.client('ses',region_name=AWS_REGION)
+
+    # Create a multipart/mixed parent container.
+    msg = MIMEMultipart('mixed')
+    # Add subject, from and to lines.
+    msg['Subject'] = SUBJECT 
+    msg['From'] = SENDER 
+    msg['To'] = RECIPIENT
+
+    # Create a multipart/alternative child container.
+    msg_body = MIMEMultipart('alternative')
+
+    # Encode the text and HTML content and set the character encoding. This step is
+    # necessary if you're sending a message with characters outside the ASCII range.
+    textpart = MIMEText(BODY_TEXT.encode(CHARSET), 'plain', CHARSET)
+    htmlpart = MIMEText(BODY_HTML.encode(CHARSET), 'html', CHARSET)
+    # imagepart = MIMEImage()
+
+    # Add the text and HTML parts to the child container.
+    msg_body.attach(textpart)
+    msg_body.attach(htmlpart)
+
+    # Define the attachment part and encode it using MIMEApplication.
+    att = MIMEApplication(ATTACHMENT)
+
+    # Add a header to tell the email client to treat this part as an attachment,
+    # and to give the attachment a name.
+    # att.add_header('Content-Disposition','attachment',filename=os.path.basename(ATTACHMENT))
+    att.add_header('Content-Disposition','attachment',filename='%s')
+
+
+    # Attach the multipart/alternative child container to the multipart/mixed
+    # parent container.
+    msg.attach(msg_body)
+
+    # Add the attachment to the parent container.
+    msg.attach(att)
+    #print(msg)
+    try:
+        #Provide the contents of the email.
+        response = client.send_raw_email(
+            Source=SENDER,
+            Destinations=[
+                RECIPIENT
+            ],
+            RawMessage={
+                'Data':msg.as_string(),
+            },
+        )
+        
+    # Display an error if something goes wrong.	
+    except ClientError as e:
+        print(e.response['Error']['Message'])
+    else:
+        print("Email sent! Message ID:"),
+        print(response['MessageId'])
+    
+    
+
+def detect_faces(client, photo, bucket):
+    try:
+        response = client.detect_faces(Image={'S3Object':{'Bucket':bucket,'Name':photo}},Attributes=['ALL']) 
+        return len(response['FaceDetails'])
+    except ClientError as e:
+        print(e.response['Error']['Message'])
+    
+    
+def compare_faces(client, photo, bucket):
+    try:
+        response = client.compare_faces(
+            SourceImage={'S3Object':{'Bucket':bucket,'Name':photo}}, 
+            TargetImage={'S3Object':{'Bucket':bucket,'Name':TARGETIMAGE}}
+            )
+        return len(response['UnmatchedFaces'])
+    except ClientError as e:
+        print(e.response['Error']['Message'])
+
+
+def violence_detect(client, photo, bucket):
+    try:
+
+        response = client.detect_moderation_labels(Image={'S3Object':{'Bucket':bucket,'Name':photo}})
+    
+        violence_count = 0
+        violence_list = []
+        violence_conf_list = []
+        
+        for label in response['ModerationLabels']:
+            
+            if 'Violence' in label['Name'] or 'Violence' in label['ParentName']:
+                violence_count += 1
+                violence_list.append(label['Name'])
+                violence_conf_list.append(label['Confidence'])
+        
+        if len(violence_conf_list):
+            violence_prob = max(violence_conf_list)
+        else:
+            violence_prob = 0
+                
+        return violence_count, violence_prob
+        
+    except ClientError as e:
+        print(e.response['Error']['Message'])
+
+
+def face_analysis(client, photo, bucket):
+    try:
+    
+        faces_count = 0
+        stranger_count = 0
+        violence_count = 0
+        violence_prob = 0
+        
+        # see if there is a face in the frame
+        # we need to do that because compare_faces function will report an error if there is no face detected
+        faces_count = detect_faces(client, photo, bucket)
+        # if there is face detected
+        if faces_count:
+            # compare faces in the pic to see if there are strangers
+            stranger_count = compare_faces(client, photo, bucket)
+            # if there are strangers, detect offensive contents
+            if stranger_count:
+                # detect weapons or violence behaviors
+                violence_count, violence_prob = violence_detect(client, photo, bucket)
+                
+        return faces_count, stranger_count, violence_count, violence_prob
+        
+    except ClientError as e:
+        print(e.response['Error']['Message'])
+
+
+
+def lambda_handler(event, context):
+    pass
+    
+    rek = boto3.client('rekognition')
+
+    # Get the object from the event and show its content type
+    bucket = event['Records'][0]['s3']['bucket']['name']
+    # name of the video
+    key = urllib.parse.unquote_plus(event['Records'][0]['s3']['object']['key'], encoding='utf-8')
+    prefix_pic = key[:-7]
+
+    # name of the image
+    img_name = prefix_pic + 'pic.jpg'
+    # print(img_name)
+    # image analysis 
+    # faces_count, stranger_count, violence_count, violence_prob = face_analysis(rek, img_name, bucket)
+    # print(face_analysis(rek, img_name, bucket))
+    stranger_count = 1
+    violence_prob = 0
+    # if there are strangers in the frame, send email to alert the house owner
+    if stranger_count:
+        send_email(bucket, key, stranger_count, violence_prob=0)
+        # send_email_raw(bucket, key, stranger_count, img_name, violence_prob)
+
+
