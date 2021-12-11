@@ -3,12 +3,12 @@ import numpy as np
 import cv2 as cv
 import time
 import datetime
-from UploadAWS import upload_file, upload_file2
+from utils.UploadAWS import upload_file, upload_file2
 import threading
 import boto3
-from ImageDetection import compare_faces
-from lambda_function import face_analysis
-from email_sender import email_raw
+from utils.ImageDetection import compare_faces
+from LambdaFunction.lambda_function import face_analysis
+from utils.email_sender import email_raw
 
 
 # shortest time between two email

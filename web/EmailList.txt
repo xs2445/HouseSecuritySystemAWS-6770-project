@@ -1,15 +1,2 @@
 xs2445@columbia.edu
 123@example.com
-123@example.com
-123@example.com
-abc@123.com
-abc@123.com
-abc@123.com
-123@123.com
-123@123.com
-123@123.com
-567@abc.com
-567@abc.com
-haha@haha.com
-567@abc.com
-test@exp.com

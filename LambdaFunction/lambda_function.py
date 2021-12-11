@@ -2,7 +2,7 @@
 # import urllib.parse
 import boto3
 from botocore.exceptions import ClientError
-from email_sender import email_raw
+from utils.email_sender import email_raw
 
 
 
